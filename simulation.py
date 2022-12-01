@@ -9,7 +9,7 @@ class Simulation(object):
     def __init__(self, virus, pop_size, vacc_percentage, initial_infected=1):
         # TODO: Create a Logger object and bind it to self.logger.
         # Remember to call the appropriate logger method in the corresponding parts of the simulation.
-        self.log = Logger(f"{virus}.txt")
+        self.logger = Logger(f"{virus}.txt")
         # TODO: Store the virus in an attribute
         self.virus = virus
         # TODO: Store pop_size in an attribute
@@ -38,9 +38,11 @@ class Simulation(object):
             population.append(Person(i, is_vaccinated=False, infected=False))
 
         self.initial_infected_i = (random.choices(range(1, self.pop_size), k=initial_infected))
+        self.infected = []
 
         for infected in self.initial_infected_i:
             population[infected] = (Person(infected, is_vaccinated=False, infected=True))
+            self.infected.append(population[infected])
 
         return population
 
@@ -52,7 +54,10 @@ class Simulation(object):
         # or if all of the living people have been vaccinated. 
         # TODO: Loop over the list of people in the population. Return True
         # if the simulation should continue or False if not.
-        pass
+        if len(self.population) > 0: #TODO add vaccination check
+            return False
+        return True
+
 
     def run(self):
         # This method starts the simulation. It should track the number of 
@@ -68,7 +73,9 @@ class Simulation(object):
             # Call the _simulation_should_continue method to determine if 
             # the simulation should continue
             should_continue = self._simulation_should_continue()
-            pass
+            time_step_counter += 1
+            self.time_step()
+
 
         # TODO: Write meta data to the logger. This should be starting 
         # statistics for the simulation. It should include the initial
@@ -87,9 +94,13 @@ class Simulation(object):
         # have that person interact with 100 other living people 
         # Run interactions by calling the interaction method below. That method
         # takes the infected person and a random person
-        pass
+        for infected in self.infected:
+            interaction(100)
+            
+            
 
-    def interaction(self, infected_person, random_person):
+
+    def interaction(self, num_interactions):
         # TODO: Finish this method.
         # The possible cases you'll need to cover are listed below:
             # random_person is vaccinated:
@@ -102,13 +113,40 @@ class Simulation(object):
             #     Simulation object's newly_infected array, so that their infected
             #     attribute can be changed to True at the end of the time step.
         # TODO: Call logger method during this method.
-        pass
+        vaccinated_population = []
 
-    def _infect_newly_infected(self):
+        for person in self.population:
+            if person.is_vaccinated:
+                vaccinated_population.append(person)
+
+        not_infectable = list(set(self.infected).union(set(vaccinated_population)))
+        infectable = list(set(self.population).difference(set(not_infectable)))
+
+        interacted_with = random.choices(infectable, k=100)
+
+        to_infect = []
+
+        for i in range(len(interacted_with)):
+            if i < len(self.population):
+                if random.random() < 0.05:
+                    to_infect.append(self.population[i])
+        
+        return to_infect
+
+    def _infect_newly_infected(self, to_infect):
         # TODO: Call this method at the end of every time step and infect each Person.
         # TODO: Once you have iterated through the entire list of self.newly_infected, remember
         # to reset self.newly_infected back to an empty list.
-        pass
+        self.newly_infected = to_infect
+
+        print(to_infect)
+
+        for infected in self.newly_infected:
+            infected.infected = True
+
+            self.infected.append(infected)
+
+        self.newly_infected = []
 
 
 if __name__ == "__main__":
