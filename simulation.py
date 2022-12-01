@@ -9,28 +9,39 @@ class Simulation(object):
     def __init__(self, virus, pop_size, vacc_percentage, initial_infected=1):
         # TODO: Create a Logger object and bind it to self.logger.
         # Remember to call the appropriate logger method in the corresponding parts of the simulation.
-        
+        log = Logger(f"{virus}.txt")
         # TODO: Store the virus in an attribute
+        self.virus = virus
         # TODO: Store pop_size in an attribute
+        self.pop_size = pop_size
         # TODO: Store the vacc_percentage in a variable
+        self.vacc_percentage = vacc_percentage
         # TODO: Store initial_infected in a variable
+        self.initial_infected = initial_infected
         # You need to store a list of people (Person instances)
         # Some of these people will be infected some will not. 
         # Use the _create_population() method to create the list and 
         # return it storing it in an attribute here. 
         # TODO: Call self._create_population() and pass in the correct parameters.
+        self.population = _create_population(initial_infected)
         pass
 
-    def _create_population(self):
+    def _create_population(self, pop_size, initial_infected):
         # TODO: Create a list of people (Person instances). This list 
         # should have a total number of people equal to the pop_size. 
         # Some of these people will be uninfected and some will be infected.
         # The number of infected people should be equal to the the initial_infected
         # TODO: Return the list of people
-        pass
+        population = []
+
+        infected_1 = random.choice(range(1, pop_size+1))
+        infected_2 = random.choice(range(1, pop_size+1).remove(infected_1))
+
+        for i in range(pop_size):
+            population.append(Person(i, False))
 
     def _simulation_should_continue(self):
-        # This method will return a booleanb indicating if the simulation 
+        # This method will return a boolean indicating if the simulation 
         # should continue. 
         # The simulation should not continue if all of the people are dead, 
         # or if all of the living people have been vaccinated. 
