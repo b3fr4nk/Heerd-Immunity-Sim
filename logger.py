@@ -67,5 +67,8 @@ class Logger(object):
         # 
         file = open(self.file_name, "a")
 
-        file.write(f"\nstep number:{step_number} current population:{0}")
+        if population_count > 0:
+            file.write(f"\nstep number:{step_number} Everyone Survived YAY!")
+        else:
+            file.write(f"\nstep number:{step_number} Everyone is Dead, oh well")
         file.close()
