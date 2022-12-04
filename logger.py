@@ -20,7 +20,7 @@ class Logger(object):
     #   The population size, the number of living, the number of dead, the number 
     #   of vaccinated, and the number of steps to reach the end of the simulation. 
 
-    def write_metadata(self, pop_size, virus):
+    def write_metadata(self, pop_size, virus, initial_infected):
         # TODO: Finish this method. This line of metadata should be tab-delimited
         # it should create the text file that we will store all logs in.
         # TIP: Use 'w' mode when you open the file. For all other methods, use
@@ -28,7 +28,7 @@ class Logger(object):
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
         file = open(self.file_name, "w")
-        data = f"{str(virus)}"
+        data = f"population:{pop_size} initial infections:{initial_infected}\n{str(virus)}\n"
 
         file.write(data)
         file.close()

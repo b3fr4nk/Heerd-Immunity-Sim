@@ -1,0 +1,13 @@
+population:5000 initial infections:5
+Name:oompaloompa, reproduction rate:1.0, mortality rate:1.0
+
+step number:1, current population:4995, number of new interactions:0
+step number:1, current population:4995, number of new infections:0
+step number:1, current population:4995, number of new deaths:5
+step number:2, current population:4499, number of new interactions:0
+step number:2, current population:4499, number of new infections:0
+step number:2, current population:4499, number of new deaths:496
+step number:3, current population:0, number of new interactions:0
+step number:3, current population:0, number of new infections:0
+step number:3, current population:0, number of new deaths:4499
+step number:3 Everyone is Dead, oh well
