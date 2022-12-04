@@ -20,8 +20,7 @@ class Logger(object):
     #   The population size, the number of living, the number of dead, the number 
     #   of vaccinated, and the number of steps to reach the end of the simulation. 
 
-    def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
-                       basic_repro_num):
+    def write_metadata(self, pop_size, virus):
         # TODO: Finish this method. This line of metadata should be tab-delimited
         # it should create the text file that we will store all logs in.
         # TIP: Use 'w' mode when you open the file. For all other methods, use
@@ -29,27 +28,44 @@ class Logger(object):
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
         file = open(self.file_name, "w")
-        data = f"{pop_size}\t{vacc_percentage}\t{virus_name}\t{mortality_rate}\t{basic_repro_num}"
+        data = f"{str(virus)}"
 
         file.write(data)
         file.close()
         
 
-    def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
+    def log_interactions(self, step_number, population_count, number_of_new_interactions):
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
         # exactly what happened in the interaction and create a String, and write to your logfile.
         file = open(self.file_name, "a")
 
-        #TODO: write other parts of the program first
+        file.write(f"\nstep number:{step_number}, current population:{population_count}, number of new interactions:{number_of_new_interactions}")
+        file.close()
+
+    def log_infections(self, step_number, population_count, number_of_new_infections):
+        # TODO: Finish this method. Think about how the booleans passed (or not passed)
+        # represent all the possible edge cases. Use the values passed along with each person,
+        # along with whether they are sick or vaccinated when they interact to determine
+        # exactly what happened in the interaction and create a String, and write to your logfile.
+        file = open(self.file_name, "a")
+
+        file.write(f"\nstep number:{step_number}, current population:{population_count}, number of new infections:{number_of_new_infections}")
+        file.close()
 
     def log_infection_survival(self, step_number, population_count, number_of_new_fatalities):
         # TODO: Finish this method. If the person survives, did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.
         # Append the results of the infection to the logfile
-        pass
+        file = open(self.file_name, "a")
 
-    def log_time_step(self, time_step_number):
+        file.write(f"\nstep number:{step_number}, current population:{population_count}, number of new deaths:{number_of_new_fatalities}")
+        file.close()
+
+    def log_time_step(self, step_number, population_count):
         # 
-        pass
+        file = open(self.file_name, "a")
+
+        file.write(f"\nstep number:{step_number} current population:{0}")
+        file.close()
