@@ -1,0 +1,6 @@
+population:10000 initial infections:5
+Name:cucomunga, reproduction rate:0.05, mortality rate:0.95
+
+2.  all of them a vaccine no one was immune at the start
+3.  95.3%
+4.  roughly 452 times
