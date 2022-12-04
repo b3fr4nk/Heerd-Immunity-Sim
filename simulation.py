@@ -66,7 +66,7 @@ class Simulation(object):
         # or if all of the living people have been vaccinated. 
         # TODO: Loop over the list of people in the population. Return True
         # if the simulation should continue or False if not.
-        if self.pop_size <= 0 or len(self.vaccinated) == self.pop_size:
+        if self.pop_size <= 0 or len(self.vaccinated) >= self.pop_size:
             return False
         return True
 
@@ -121,9 +121,6 @@ class Simulation(object):
             if person.is_alive:
                 current_infected.append(person)
 
-        print(len(current_infected))
-        print(len(self.population))
-
         for infected in current_infected:
                 
             new_interactions = self.interaction(100)
@@ -135,9 +132,10 @@ class Simulation(object):
                 new_survivors += 1
             else:
                 infected.is_alive = False
+                self.pop_size -= 1
                 new_deaths += 1
 
-        self.pop_size -= new_deaths
+        
         self.step_number += 1
 
         self.logger.log_interactions(self.step_number, self.pop_size, number_of_new_interactions)
